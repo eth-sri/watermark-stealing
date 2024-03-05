@@ -8,3 +8,16 @@ The code repository accompanying our preprint: [**Watermark Stealing in Large La
 Nikola Jovanović, nikola.jovanovic@inf.ethz.ch<br>
 Robin Staab, robin.staab@inf.ethz.ch<br>
 Martin Vechev
+
+### Citation
+
+```
+@article{jovanovic2024watermarkstealing,
+  title = {Watermark Stealing in Large Language Models},
+  author = {Jovanović, Nikola and Staab, Robin and Vechev, Martin},
+  year = {2024},
+  eprint={2402.19361},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG}
+}
+```
