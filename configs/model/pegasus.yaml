@@ -1,0 +1,8 @@
+name: 'tuner007/pegasus_paraphrase'
+use_fp16: false
+use_flashattn2: false
+prompt_max_len: 60 # pegasus
+response_max_len: 60 # pegasus
+n_beams: 1 
+use_sampling: True 
+sampling_temp: 1.5

@@ -1,0 +1,8 @@
+name: 'kalpeshk2011/dipper-paraphraser-xxl'
+use_fp16: false
+use_flashattn2: false
+prompt_max_len: 1600
+response_max_len: 1600 
+n_beams: 1 
+use_sampling: True 
+sampling_temp: 0.7

@@ -1,0 +1,66 @@
+meta:
+  device: 'cuda'
+  seed: 123 
+  out_root_dir: 'out_llama13b/'
+server:
+  model:
+    cfg_path: 'configs/model/llama13b.yaml'
+    skip: false
+  watermark:
+    scheme: 'kgw'
+    generation:
+      - seeding_scheme: ['ff-additive_prf-3-False-15485863']
+        gamma: 0.25
+        delta: 4.0
+    detection:
+      normalizers: []
+      ignore_repeated_ngrams: true 
+      z_threshold: 4.0 
+attacker:
+  algo: 'our'
+  model:
+    cfg_path: 'configs/model/mistral7b.yaml'
+    skip: true
+    use_sampling: False
+  querying:
+    skip: false
+    dataset: 'c4'
+    batch_size: 16
+    start_from_batch_num: 0
+    end_at_batch_num: 2000
+    apply_watermark: true 
+  learning:
+    skip: true
+    mode: "fast" 
+    nb_queries: 30000
+  generation:
+    spoofer_strength: 7.5
+    w_abcd: 2.0
+    w_partials: 1.0
+    w_empty: 0.5
+    w_future: 0.0
+    min_wm_count_nonempty: 2 
+    min_wm_mass_empty: 0.00007
+    future_num_cands: 5
+    future_num_options_per_fillin: 10
+    future_prefix_size: 10 
+    future_local_w_decay: 0.9 
+    panic_from: 750
+    repetition_penalty: 1.6
+    use_ft_counts: true
+    use_graceful_conclusion: False
+    prevent_eos_if_zest_bad: False
+evaluator:
+  skip: true
+  metrics:
+    - "detector"
+    - "ppl"
+    - "gpt4"
+  eval_class: "spoofing"
+  eval_mode: "essays"
+gradio:
+  skip: true 
+  make_public: false 
+  port: 7860
+  default_prompt: "Write a long essay about war."
+

@@ -1,0 +1,72 @@
+meta:
+  device: 'cuda'
+  seed:  [123, 124, 125, 126, 127]
+  out_root_dir: 'out_llama13b/'
+  use_neptune: true
+server:
+  model:
+    cfg_path: 'configs/model/llama13b.yaml'
+    skip: true
+  watermark:
+    scheme: 'kgw'
+    generation:
+      - seeding_scheme: ['ff-additive_prf-3-False-15485863']
+        gamma: 0.25
+        delta: 4.0
+    detection:
+      normalizers: []
+      ignore_repeated_ngrams: true 
+      z_threshold: 4.0 
+attacker:
+  algo: 'our'
+  model:
+    cfg_path: 'configs/model/gemma7b.yaml'
+    skip: false
+    use_sampling: true
+  querying:
+    skip: true
+    dataset: 'c4'
+    batch_size: 64
+    start_from_batch_num: 0
+    end_at_batch_num: 500
+    apply_watermark: true 
+  learning:
+    skip: false
+    mode: "fast"
+    nb_queries: 30000
+  generation:
+    sysprompt: 'standard'
+    spoofer_strength: 14.5
+    w_abcd: 2.0
+    w_partials: 0.0
+    w_empty: 0.0
+    w_future: 0.0
+    min_wm_count_nonempty: 2 
+    min_wm_mass_empty: 0.00007
+    future_num_cands: 5
+    future_num_options_per_fillin: 10
+    future_prefix_size: 10 
+    future_local_w_decay: 0.9 
+    panic_from: 750
+    repetition_penalty: 1.6
+    use_ft_counts: true
+    prevent_eos_if_zest_bad: true
+    use_graceful_conclusion: true 
+evaluator:
+  skip: false
+  batch_size: 8
+  eval_class: "spoofing"
+  metrics:
+    - "detector"
+    - "ppl"
+    - "gpt4"
+    - "self"
+  eval_mode:
+    - "dolly-writing-100-long"
+    - "book-reports"
+    - "fake-news"
+gradio:
+  skip: true 
+  make_public: false 
+  port: 7860
+  default_prompt: "Write a long essay about war."

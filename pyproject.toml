@@ -1,0 +1,23 @@
+[tool.black]
+line-length = 100
+preview = true
+[tool.isort]
+profile = "black"
+[tool.mypy]
+files = "."
+ignore_missing_imports = true
+disallow_untyped_defs = true
+[tool.flake8]
+max-line-length = 100
+extend-ignore = "E203,E501"
+exclude = [
+    ".git",
+    "__pycache__",
+    "docs/source/conf.py",
+    "build",
+    "dist",
+]
+max-complexity = 15
+per-file-ignores = [
+    "__init__.py:F401, F403"
+]

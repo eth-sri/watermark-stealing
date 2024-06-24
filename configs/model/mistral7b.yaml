@@ -1,0 +1,8 @@
+name: 'mistralai/Mistral-7B-Instruct-v0.1'
+use_fp16: True 
+use_flashattn2: True 
+prompt_max_len: 800
+response_max_len: 800 
+n_beams: 1 
+use_sampling: True 
+sampling_temp: 0.7
